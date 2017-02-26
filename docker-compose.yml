@@ -16,11 +16,19 @@ services:
      links:
        - "mysql:db"
      ports:
-       - "9999:80"
+       - "9000:80"
      restart: always
 
+#  php-dev is build from the Dockerfile in the current directory
+#      image: php:7.0-apache     
    php-dev:
-      image: php:7.0-apache     
+      build:
+       .
       links:
        - "mysql:db"
+      volumes:
+       - "/home/frederic/git/citemplate:/var/www/html"
+      ports:
+       - "9001:80"
+
 
