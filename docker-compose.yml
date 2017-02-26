@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+   mysql:
+     image: mysql:5.7
+     volumes:
+       - "/data/docker/mysql/gvv:/var/lib/mysql"
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: toto
+
+   myadmin:
+     depends_on:
+       - mysql
+     image: phpmyadmin/phpmyadmin
+     links:
+       - "mysql:db"
+     ports:
+       - "9999:80"
+     restart: always
+
+   php-dev:
+      image: php:7.0-apache     
+      links:
+       - "mysql:db"
+
